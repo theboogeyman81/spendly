@@ -1,6 +1,24 @@
+import click
 from flask import Flask, render_template
+from database.db import init_db, seed_db
 
 app = Flask(__name__)
+
+
+# ------------------------------------------------------------------ #
+# CLI commands                                                        #
+# ------------------------------------------------------------------ #
+
+@app.cli.command("init-db")
+def init_db_command():
+    init_db()
+    click.echo("Database initialised.")
+
+
+@app.cli.command("seed-db")
+def seed_db_command():
+    seed_db()
+    click.echo("Database seeded.")
 
 
 # ------------------------------------------------------------------ #
