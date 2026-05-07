@@ -99,3 +99,24 @@ def create_user(name, email, password_hash):
         return None
     finally:
         conn.close()
+
+
+def get_user_by_id(user_id):
+    conn = get_db()
+    user = conn.execute("SELECT * FROM users WHERE id = ?", (user_id,)).fetchone()
+    conn.close()
+    return user
+
+
+def update_user_name(user_id, name):
+    conn = get_db()
+    conn.execute("UPDATE users SET name = ? WHERE id = ?", (name, user_id))
+    conn.commit()
+    conn.close()
+
+
+def update_user_password(user_id, password_hash):
+    conn = get_db()
+    conn.execute("UPDATE users SET password_hash = ? WHERE id = ?", (password_hash, user_id))
+    conn.commit()
+    conn.close()
